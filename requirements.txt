@@ -1,9 +1,10 @@
-wheel (built distribution, ready-to-install format)
+wheel #(built distribution, ready-to-install format)
 numpy
 pandas
 matplotlib
 eeglib
 seaborn
-mne (package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, ...)
+mne #(package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, ...)
 scipy
 scikit-learn
+PyWavelets
