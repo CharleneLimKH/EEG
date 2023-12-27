@@ -8,3 +8,4 @@ mne #(package for exploring, visualizing, and analyzing human neurophysiological
 scipy
 scikit-learn
 PyWavelets
+PyEEG
