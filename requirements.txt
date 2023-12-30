@@ -9,3 +9,5 @@ scipy
 scikit-learn
 PyWavelets
 PyEEG
+keras
+tensorflow
