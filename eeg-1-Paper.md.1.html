@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html style="padding: 0; margin: 0;--markdown-font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif; --markdown-font-size: 14px; --markdown-line-height: 1.6;--vscode-font-family: &quot;Segoe WPC&quot;, &quot;Segoe UI&quot;, sans-serif; --vscode-font-weight: normal; --vscode-font-size: 13px; --vscode-widget-border: #303031;--vscode-editor-font-family: Consolas, 'Courier New', monospace; --vscode-editor-font-weight: normal; --vscode-editor-font-size: 14px;">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<meta http-equiv="Content-Security-Policy" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	</head>
+	<body class="vscode-body wordWrap" style="padding: 0; margin: 0; /*overflow: hidden;*/ /*width: 100%;*/ /*height: 100%;*/ overscroll-behavior-x: none;">
+		<div class="markdown-body">
+<link rel="stylesheet" type="text/css" href="c:\Users\charl\.vscode\extensions\abechanta.vscode-ext-paged-media-0.4.1\styles\page-layout\base.css" />
+<link rel="stylesheet" type="text/css" href="c:\Users\charl\.vscode\extensions\abechanta.vscode-ext-paged-media-0.4.1\styles\content-style\base.css" /><div  data-line="0" class="code-line" dir="auto" ></div>
+<div style='text-align: center;'>
+<h3>Digital Biomarker Discovery for Eye Disorders using EEG Data</h3>
+<p><center>Prepared by Kui Hong Lim (MSc of Medical Informatics)<br>
+Email: kuihong.lim@students.fhwn.ch | <a href = "https://github.com/CharleneLimKH/EEG.git)">Github</a><br>
+Date : 08 January 2024<br>
+Module : Digital Biomarker<br>
+University of Applied Sciences and Arts Northwestern Switzerland</center></p>
+</div>
+<hr data-line="9" class="code-line" dir="auto">
+<div  data-line="11" class="code-line" dir="auto" ></div>
+<h4>Objective</h4>
+<p>The objective of this project is to develop a digital biomarker using EEG data that can accurately identify individuals with eye disorders characterized by the need for long and stronger blinks. Students will analyze EEG signals obtained from four electrodes to find a biomarker that can be used to diagnose this eye disorder efficiently.</p>
+<div  data-line="14" class="code-line" dir="auto" ></div>
+<h4>Project Tasks</h4>
+<table data-line="16" class="code-line" dir="auto">
+<thead data-line="16" class="code-line" dir="auto">
+<tr data-line="16" class="code-line" dir="auto">
+<th data-line="16" class="code-line" dir="auto">Index</th>
+<th data-line="16" class="code-line" dir="auto">Task</th>
+</tr>
+</thead>
+<tbody data-line="18" class="code-line" dir="auto">
+<tr data-line="18" class="code-line" dir="auto">
+<td data-line="18" class="code-line" dir="auto">1</td>
+<td data-line="18" class="code-line" dir="auto">Data download and Preprocessing</td>
+</tr>
+<tr data-line="19" class="code-line" dir="auto">
+<td data-line="19" class="code-line" dir="auto">2</td>
+<td data-line="19" class="code-line" dir="auto">Feature Extraction</td>
+</tr>
+<tr data-line="20" class="code-line" dir="auto">
+<td data-line="20" class="code-line" dir="auto">3</td>
+<td data-line="20" class="code-line" dir="auto">Biomarker Selection and Visualization</td>
+</tr>
+<tr data-line="21" class="code-line" dir="auto">
+<td data-line="21" class="code-line" dir="auto">4</td>
+<td data-line="21" class="code-line" dir="auto">Model Development, Validation and Evaluation</td>
+</tr>
+</tbody>
+</table>
+<p data-line="25" class="code-line" dir="auto"><strong>1. Data download and preprocessing</strong></p>
+<p data-line="27" class="code-line" dir="auto">1.1 Data cleaning and understanding</p>
+<p data-line="29" class="code-line" dir="auto">Reading the EEG data from the provided four electrodes by running the file collected during the long blink and short blink session with equal length (510 points pro session). Conduct the preliminary data processing and visualization steps to gain some insight from the EEG recording, started with the long blink data:</p>
+<ul data-line="30" class="code-line" dir="auto">
+<li data-line="30" class="code-line" dir="auto">Split and clean the data</li>
+<li data-line="31" class="code-line" dir="auto">Select the first 510 points for visualization</li>
+</ul>
+<p data-line="33" class="code-line" dir="auto">The initial visualization of the data reveals that the amplitudes of the four signals range from 400 Hz to 1200 Hz. The first, third, and fourth electrode signals exhibit a similar wave pattern with powerline noise, while the second electrode shows less perturbation with powerline noise.</p>
+<p data-line="35" class="code-line" dir="auto">1.2 Load data, and parsing it from string to appropriate data type. Then, select the first 510 points for visualization.</p>
+<p data-line="37" class="code-line" dir="auto">1.3 Data format compatibility</p>
+<p data-line="39" class="code-line" dir="auto">In this step, the MNE-Python package is used. MNE is an open source tool for exploring, visualizing, and analyzing human neurophysiological data, such as EEG. A .fif file needs to be generated from csv to fit the raw data format used in this package for analysis.</p>
+<p data-line="41" class="code-line" dir="auto">1.4 Scaling the value</p>
+<p data-line="43" class="code-line" dir="auto">A healthy human EEG displays a certain pattern of activity correlate with how awake a person is. The range of frequencies observed are between 1 and 30 Hz, with amplitudes vary between 20 and 100 μV&quot;. However, the raw signals of the four electrodes provided exhibit different magnitude range: (&quot;500 - 1100&quot; or &quot;400 - 1200&quot;).</p>
+<p data-line="45" class="code-line" dir="auto">The objective here is to standardize the magnitude of the variations in the raw signale from the four electrodes into a consistent range between 20 and 100 μV. Standardizing the range helps to achieve consistent and comparable magnitudes across the electrodes. Additionally, scaled data of similar amplitudes can lead to better convergence and efficient training for machine learning.</p>
+<p data-line="47" class="code-line" dir="auto">In order to rescale the raw signal values to the desired range between 20 and 100 μV, min-max scaling is applied.
+Transposing the DataFrame is done to ensure that each row corresponds to a specific time point, which aligns with the typical structure of time-series data.</p>
+<p data-line="50" class="code-line" dir="auto">1.5 Artifact detection</p>
+<p data-line="52" class="code-line" dir="auto">MNE-Python includes tools for automated detection of certain artifacts such as blinks; one can always visually inspect the data to identify and annotate artifacts as well. Before looking at artifacts, SSP projectors is set aside in a separate variable and then remove them from raw object using del_proj() method so that the data can be inspected in its original, raw state. Signal-space projection (SSP) is a technique for removing noise from EEG signals by projecting the signal onto a lower-dimensional subspace.</p>
+<p data-line="54" class="code-line" dir="auto">1.6 Apply low-frequency drifts</p>
+<p data-line="56" class="code-line" dir="auto">Low-frequency drifts are most readlily detected by visual inspection using the basic plot() method, it is helpful to plot a relatively long time span and to disable channel-wise DC shift correction. In this context, a 2 seconds is plotted. It is observed that there are approximately 12 pulses occuring every 0.25 seconds. This pattern results in around 50 pulses per second, corresponding to a frequency of 50 Hz. Then the power spectral density is applied to unveil the distribution of power across various frequencies in the EEG signal.</p>
+<p data-line="58" class="code-line" dir="auto">The Power Spectral Density (PSD) examines how the power of the signal is distributed across different frequencies. The PSD analysis reveals an increase in noise magnitude from 10 Hz to 30 Hz, with a notable peak at 50 Hz, likely indicating power line noise (commonly at 50 Hz in the EU). Additionally, other low-power frequencies are detected around 56 Hz and between 72 to 80 Hz. Given this observation, it is planned to apply a notch filter later, which is commonly use to eliminate specific inteferences frequences such as power line noise. The goal is to mitigate pertubations caused by unwanted frequency in the data.</p>
+<p data-line="60" class="code-line" dir="auto">1.7 Filtering EEG data</p>
+<p data-line="62" class="code-line" dir="auto">Before initiating the filter process, the preprocessed raw data is converted into a DataFrame.</p>
+<p data-line="64" class="code-line" dir="auto">Filtering is an important process of removing unwanted frequencies such as noise and artifacts from a signal and preserve the desired frequencies to extract relevant information.</p>
+<p data-line="66" class="code-line" dir="auto">A window of data is segmented for further processing. The preprocessing employs third-order filters, including a median filter for noise removal and retention of important features. Subsequent processing involved additional filtering steps using both low-pass and high-pass filters. Note that for both the high-pass and low-pass filters, the power does not drop of sharply right at the cutoff frequency, rather, there is a roll-off, indicating a gradual decrease in power over a range of frequencies. The chosen Butterworth filter, with a fifth-order design, is employed, configuring cutoff frequencies at 0.5 Hertz for the low-pass filter and 50 Hertz for the high-pass filter. The Butterworth filter is known for maintaining a flat frequency response in the passband. To address power interference at 50 Hertz, a notch filter is then applied.</p>
+<p data-line="68" class="code-line" dir="auto">In the final step, a finite impulse response (FIR) filter was designed using the &quot;signal.firwin&quot; function from the SciPy library. FIR filter is widely used for signal processing tasks such as EEG signal processing. This digital filter was configured with 430 taps (coefficients). The cutoff frequencies for this FIR filter were set in the range of 0.01 to 0.06. The lower cutoff frequency of 0.01 Hz is chosen to preserve very low-frequency components in the EEG signal. This includes elements like baseline shifts or gradual trends, which can be important features. The upper cutoff frequency of 0.06 Hz indicates that the filter permits relatively higher-frequency components within the low-frequency range to pass. This selective allowance is designed to capture specific frequency components while mitigating both lower-frequency drifts and potential higher-frequency noise. Essentially, FIR filter is used to isolate targeted frequency components within the EEG signal, striking a balance between retaining essential low-frequency information and minimizing unwanted noise. The chosen cutoff frequencies and the overall design aim to enhance the quality and interpretability of the EEG data for subsequent analyses.</p>
+<p data-line="70" class="code-line" dir="auto">The application of FIRWIN demonstrates a notable improvement in the filtered EEG signal for blinks, resulting in a smoother and cleaner representation compared to the preprocessed state. This enhanced clarity enhances the interpretability and quality of the EEG data for subsequent analyses. The images are placed side by side for comparison.</p>
+<p data-line="72" class="code-line" dir="auto">Upon inspecting the two filtered EEG signals for both long and short blink data, it becomes apparent that the short blink cycle (image on the right) is shorter, particularly noticeable in the first, second, and fourth electrodes. Conversely, the long blink cycle (image on the left) is longer. Additionally, more fluctuation is observed in the third electrode for both long and short blinks, suggesting the potential influence of cognitive activity being recorded in this electrode. An example of one of the images from the four electrodes is displayed below:</p>
+<p data-line="74" class="code-line" dir="auto"><img src="image/ser_1.png" alt="ser_1.png" data-src="image/ser_1.png"></p>
+<p data-line="76" class="code-line" dir="auto">1.8 Data preprocessing and filtering on short blink data</p>
+<p data-line="78" class="code-line" dir="auto">The same steps to process and filter long blink data are applied on the short blink data. In contrast to the long blink data, the short blink data exhibits reduced power line noise. However, it is affected by artifacts and noises within the amplitude range of 600 Hz to 900 Hz. Many small fluctuations are noticed before the rise or descent to the peak at 60 seconds (an indication of eye blink). The Power Spectral Density (PSD) analysis indicates a gradual increase in noise from 10 Hz towards the end of the segment, featuring a distinct peak at around 56 Hz.</p>
+<p data-line="80" class="code-line" dir="auto"><strong>2. Feature Extraction</strong></p>
+<p data-line="82" class="code-line" dir="auto">2.1 Binarization</p>
+<p data-line="84" class="code-line" dir="auto">The dataset, comprising 25,500 rows, is segmented into batches, with each batch corresponding to a blink epoch of 2 seconds. Each epoch consists of 510 rows, resulting in a total of 50 blinks (including both long and short blinks). This segmentation leads to 50 chunks, each containing 510 data points. Subsequently, a new column is added to classify the filtered dataset into two classes, denoted as 0 and 1. To facilitate time series processing, a function is created to split the data into 100 batches, each containing 4 rows of 510. The batched data are then transposed, treating each array as a unit model for processing.</p>
+<p data-line="86" class="code-line" dir="auto">2.2 Statistical Extraction of Features</p>
+<p data-line="88" class="code-line" dir="auto">Subsequently, statistical feature extraction is employed to identify important signal attributes such as amplitude variation. These features offer valuable insights into the signal and contribute to the system's accuracy. While these statistical features provide valuable information, studies suggest that relying solely on them may not yield a comprehensive diagnosis as they may fall short in capturing the full complexity of brain signals. The statistical features used are:</p>
+<ol data-line="90" class="code-line" dir="auto">
+<li data-line="90" class="code-line" dir="auto">Mean</li>
+</ol>
+<p data-line="92" class="code-line" dir="auto">Mean represents the average value of the EEG signal across the selected time domain.Changes in the mean may indicate shifts in the baseline or overall amplitude of the signal. It can be calculated by using Eq. below:</p>
+<ol start="2" data-line="94" class="code-line" dir="auto">
+<li data-line="94" class="code-line" dir="auto">Variance</li>
+</ol>
+<p data-line="96" class="code-line" dir="auto">Variance provides information about the spread or dispersion of amplitude values in the signal. Specifically, variance quantifies how much individual data points in the signal deviate from the mean (average) value. A higher variance indicates greater variability in the amplitude values, while a lower variance suggests that the values are more tightly clustered around the mean.</p>
+<ol start="3" data-line="98" class="code-line" dir="auto">
+<li data-line="98" class="code-line" dir="auto">Energy</li>
+</ol>
+<p data-line="100" class="code-line" dir="auto">Energy is calculated to find the spreading out of the data values around the mean.Energy provides information about the intensity or power of the signal. Peaks in energy may correspond to periods of increased neural activity or certain events captured by the EEG. It can be calculated by using Eq. below:</p>
+<ol start="4" data-line="102" class="code-line" dir="auto">
+<li data-line="102" class="code-line" dir="auto">Standard Deviation</li>
+</ol>
+<p data-line="104" class="code-line" dir="auto">Standard deviation measures the amount of variability or dispersion of the EEG signal values around the mean.A higher standard deviation suggests greater variability in signal amplitudes. It can be indicative of the signal's overall volatility or the presence of irregularities. It can be calculated by using Eq. below:</p>
+<ol start="5" data-line="106" class="code-line" dir="auto">
+<li data-line="106" class="code-line" dir="auto">Kurtosis</li>
+</ol>
+<p data-line="108" class="code-line" dir="auto">In a probability distribution, it measures the outliers present. It can be calculated by using Eq. below:</p>
+<ol start="6" data-line="110" class="code-line" dir="auto">
+<li data-line="110" class="code-line" dir="auto">Skewness</li>
+</ol>
+<p data-line="112" class="code-line" dir="auto">Skewness describes asymmetry from the normal distribution in a set of statistical data, as data becomes more symmetrical as its value approaches zero. Normally distributed data, by definition has little skewness and on other hand positively skewed or right sided skewed data has positive and negatively skewed or left sided skewed has negative value. It can be calculated by using Eq. below:</p>
+<table data-line="114" class="code-line" dir="auto">
+<thead data-line="114" class="code-line" dir="auto">
+<tr data-line="114" class="code-line" dir="auto">
+<th data-line="114" class="code-line" dir="auto">Statistical features</th>
+<th data-line="114" class="code-line" dir="auto">Long blink</th>
+<th data-line="114" class="code-line" dir="auto">Short blink</th>
+</tr>
+</thead>
+<tbody data-line="116" class="code-line" dir="auto">
+<tr data-line="116" class="code-line" dir="auto">
+<td data-line="116" class="code-line" dir="auto">Mean</td>
+<td data-line="116" class="code-line" dir="auto">0.019291</td>
+<td data-line="116" class="code-line" dir="auto">0.02110</td>
+</tr>
+<tr data-line="117" class="code-line" dir="auto">
+<td data-line="117" class="code-line" dir="auto">Variance</td>
+<td data-line="117" class="code-line" dir="auto">1.844759e+01</td>
+<td data-line="117" class="code-line" dir="auto">4.101056e+01</td>
+</tr>
+<tr data-line="118" class="code-line" dir="auto">
+<td data-line="118" class="code-line" dir="auto">Energy</td>
+<td data-line="118" class="code-line" dir="auto">1.881693e+06</td>
+<td data-line="118" class="code-line" dir="auto">4.183123e+06</td>
+</tr>
+<tr data-line="119" class="code-line" dir="auto">
+<td data-line="119" class="code-line" dir="auto">Standard Deviation</td>
+<td data-line="119" class="code-line" dir="auto">4.3</td>
+<td data-line="119" class="code-line" dir="auto">6.4</td>
+</tr>
+<tr data-line="120" class="code-line" dir="auto">
+<td data-line="120" class="code-line" dir="auto">Kurtosis</td>
+<td data-line="120" class="code-line" dir="auto">3.78</td>
+<td data-line="120" class="code-line" dir="auto">7.82</td>
+</tr>
+<tr data-line="121" class="code-line" dir="auto">
+<td data-line="121" class="code-line" dir="auto">Skewness</td>
+<td data-line="121" class="code-line" dir="auto">-0.0121</td>
+<td data-line="121" class="code-line" dir="auto">-0.0226</td>
+</tr>
+</tbody>
+</table>
+<p data-line="123" class="code-line" dir="auto">It is observed that the mean and skewness do not show much variation between the two classes. On the other hand, variance, energy, standard deviation, and kurtosis show some good variation between the two classes. Therefore, the parameters <em>Variance</em>, <em>Energy</em>, <em>Standard deviation</em>, and <em>Kurtosis</em> are considered for analysis.</p>
+<p data-line="127" class="code-line" dir="auto"><img src="eeg-1-Paper_files/eeg-1-Paper_34_0.png" alt="png" data-src="eeg-1-Paper_files/eeg-1-Paper_34_0.png"></p>
+<p data-line="131" class="code-line" dir="auto"><strong>3. Biomarker Selection and Visualization</strong></p>
+<p data-line="133" class="code-line" dir="auto">In the context of biomarker selection, the random forest algorithm, which employs multiple decision tree classifiers on various subsets of the dataset is applied. Averaging is used to enhance predictive accuracy and control overfitting.</p>
+<p data-line="135" class="code-line" dir="auto">To determine the optimal number of trees, five-fold cross-validation is applied. Interestingly, all estimators <code>n_trees in [50, 100, 200, 500]</code> achieved perfect accuracy on the training data. As a result, the retained features are applied with the smallest number of trees <code>n_estimators = 50</code>.</p>
+<p data-line="137" class="code-line" dir="auto">The selected biomarkers consist of 16 statistical features (4 features for each of the 4 electrodes). These features are extracted from 75% of the datasets, and two classes are considered. The visualized plot illustrates the sequences of statistical features from top to bottom as <em>Variance</em>, <em>Energy</em>, <em>Standard deviation</em>, and <em>Kurtosis</em>. Long blinks are annotated with a green dotted line, while short blinks are annotated with a red dotted line. The visual inspection indicates that the majority of long blinks (associated with eye disorder) appear flat, while short blinks (healthy state) display spikes. This distinction is particularly noticeable, especially in the <em>Kurtosis</em> feature.</p>
+<pre data-line="142" class="code-line" dir="auto"><code>Text(0, 0.5, 'Amplitude of the features')
+</code></pre>
+<p data-line="148" class="code-line" dir="auto"><img src="eeg-1-Paper_files/eeg-1-Paper_40_1.png" alt="png" data-src="eeg-1-Paper_files/eeg-1-Paper_40_1.png"></p>
+<p data-line="152" class="code-line" dir="auto"><strong>4. Model Development, Validation and Evaluation</strong></p>
+<p data-line="154" class="code-line" dir="auto">The first model architecture is a simple sequential neural network model for classification using <code>Keras library</code>. This model incorporates two <code>dense layers</code>, hidden layers with 20 neurons, and output layer with 2 classes <strong>(long blink = 1, short blink = 0)</strong>. The input layer is 8 (selected features). Activation function are specified for both hidden and output layers. Additionally, an optimizer, different batch sizes, and loss function are configured to quantify the difference between predicted binary outcomes and actual binary labels during testing at 40 epochs.To fine-tune the model, three sets of hyperparameters (activation function, loss function, and optimizer) are employed. Following model training, the <code>classification_report()</code> function from the <code>sklearn library</code> is applied to generate the metrics commonly used to assess the quality of the model. From the report, <strong>Precision</strong>, <strong>Recall</strong>, <strong>F1-Score</strong>  are specifically considered in the evaluation.</p>
+<p data-line="156" class="code-line" dir="auto">Upon analyzing the test dataset, which comprises 11 short blinks and 14 long blinks, set C (characterized by the activation function <code>Relu</code> in the hidden layer, <code>Softmax</code> in the last layer, <code>categorical_crossentropy</code> as loss function, <code>Adam</code> as optimizer and <code>batch size</code> as 20)  emerges as the optimal choice among the three sets of hyperparameters. It demonstrates a relatively low loss score and excels in test accuracy, precision, recall, and F1-score.</p>
+<div  data-line="158" class="code-line" dir="auto" ></div>
+<p>
+<h5>Model Analysis</h5>
+<div  data-line="161" class="code-line" dir="auto" ></div>
+<h5>Model 1</h5>
+<table data-line="163" class="code-line" dir="auto">
+<thead data-line="163" class="code-line" dir="auto">
+<tr data-line="163" class="code-line" dir="auto">
+<th data-line="163" class="code-line" dir="auto">Set</th>
+<th data-line="163" class="code-line" dir="auto">Activation Function <em>(Hidden layer)</em></th>
+<th data-line="163" class="code-line" dir="auto">Activation Function <em>(Last layer)</em></th>
+<th data-line="163" class="code-line" dir="auto">Loss Function</th>
+<th data-line="163" class="code-line" dir="auto">Optimizer</th>
+<th data-line="163" class="code-line" dir="auto">Batch Size</th>
+</tr>
+</thead>
+<tbody data-line="165" class="code-line" dir="auto">
+<tr data-line="165" class="code-line" dir="auto">
+<td data-line="165" class="code-line" dir="auto">A</td>
+<td data-line="165" class="code-line" dir="auto">Relu</td>
+<td data-line="165" class="code-line" dir="auto">Sigmoid</td>
+<td data-line="165" class="code-line" dir="auto">binary_crossentropy</td>
+<td data-line="165" class="code-line" dir="auto">RMSProp</td>
+<td data-line="165" class="code-line" dir="auto">20</td>
+</tr>
+<tr data-line="166" class="code-line" dir="auto">
+<td data-line="166" class="code-line" dir="auto">B</td>
+<td data-line="166" class="code-line" dir="auto">Relu</td>
+<td data-line="166" class="code-line" dir="auto">Softmax</td>
+<td data-line="166" class="code-line" dir="auto">categorical_crossentropy</td>
+<td data-line="166" class="code-line" dir="auto">RMSProp</td>
+<td data-line="166" class="code-line" dir="auto">20</td>
+</tr>
+<tr data-line="167" class="code-line" dir="auto">
+<td data-line="167" class="code-line" dir="auto">C</td>
+<td data-line="167" class="code-line" dir="auto">Relu</td>
+<td data-line="167" class="code-line" dir="auto">Softmax</td>
+<td data-line="167" class="code-line" dir="auto">categorical_crossentropy</td>
+<td data-line="167" class="code-line" dir="auto">Adam</td>
+<td data-line="167" class="code-line" dir="auto">20</td>
+</tr>
+</tbody>
+</table>
+<div  data-line="169" class="code-line" dir="auto" ></div>
+</p>
+<div  data-line="171" class="code-line" dir="auto" ></div>
+<p>
+<h5>Model 1 result</h5>
+<table data-line="174" class="code-line" dir="auto">
+<thead data-line="174" class="code-line" dir="auto">
+<tr data-line="174" class="code-line" dir="auto">
+<th data-line="174" class="code-line" dir="auto">Set</th>
+<th data-line="174" class="code-line" dir="auto">Loss Score</th>
+<th data-line="174" class="code-line" dir="auto">Test Accuracy</th>
+</tr>
+</thead>
+<tbody data-line="176" class="code-line" dir="auto">
+<tr data-line="176" class="code-line" dir="auto">
+<td data-line="176" class="code-line" dir="auto">A</td>
+<td data-line="176" class="code-line" dir="auto">5</td>
+<td data-line="176" class="code-line" dir="auto">0.88</td>
+</tr>
+<tr data-line="177" class="code-line" dir="auto">
+<td data-line="177" class="code-line" dir="auto">B</td>
+<td data-line="177" class="code-line" dir="auto">64</td>
+<td data-line="177" class="code-line" dir="auto">0.96</td>
+</tr>
+<tr data-line="178" class="code-line" dir="auto">
+<td data-line="178" class="code-line" dir="auto">C</td>
+<td data-line="178" class="code-line" dir="auto">4</td>
+<td data-line="178" class="code-line" dir="auto">0.96</td>
+</tr>
+</tbody>
+</table>
+<div  data-line="180" class="code-line" dir="auto" ></div>
+</p>
+<div  data-line="182" class="code-line" dir="auto" ></div>
+<p>
+<h5>Classification report: Set A</h5>
+<table data-line="185" class="code-line" dir="auto">
+<thead data-line="185" class="code-line" dir="auto">
+<tr data-line="185" class="code-line" dir="auto">
+<th data-line="185" class="code-line" dir="auto">Class</th>
+<th data-line="185" class="code-line" dir="auto">Precision</th>
+<th data-line="185" class="code-line" dir="auto">Recall</th>
+<th data-line="185" class="code-line" dir="auto">F1-score</th>
+</tr>
+</thead>
+<tbody data-line="187" class="code-line" dir="auto">
+<tr data-line="187" class="code-line" dir="auto">
+<td data-line="187" class="code-line" dir="auto">0</td>
+<td data-line="187" class="code-line" dir="auto">0.83</td>
+<td data-line="187" class="code-line" dir="auto">0.91</td>
+<td data-line="187" class="code-line" dir="auto">0.87</td>
+</tr>
+<tr data-line="188" class="code-line" dir="auto">
+<td data-line="188" class="code-line" dir="auto">1</td>
+<td data-line="188" class="code-line" dir="auto">0.92</td>
+<td data-line="188" class="code-line" dir="auto">0.86</td>
+<td data-line="188" class="code-line" dir="auto">0.89</td>
+</tr>
+</tbody>
+</table>
+<div  data-line="190" class="code-line" dir="auto" ></div>
+</p>
+<div  data-line="192" class="code-line" dir="auto" ></div>
+<p>
+<h5>Classification report: Set B</h5>
+<table data-line="195" class="code-line" dir="auto">
+<thead data-line="195" class="code-line" dir="auto">
+<tr data-line="195" class="code-line" dir="auto">
+<th data-line="195" class="code-line" dir="auto">Class</th>
+<th data-line="195" class="code-line" dir="auto">Precision</th>
+<th data-line="195" class="code-line" dir="auto">Recall</th>
+<th data-line="195" class="code-line" dir="auto">F1-score</th>
+</tr>
+</thead>
+<tbody data-line="197" class="code-line" dir="auto">
+<tr data-line="197" class="code-line" dir="auto">
+<td data-line="197" class="code-line" dir="auto">0</td>
+<td data-line="197" class="code-line" dir="auto">1.00</td>
+<td data-line="197" class="code-line" dir="auto">0.91</td>
+<td data-line="197" class="code-line" dir="auto">0.95</td>
+</tr>
+<tr data-line="198" class="code-line" dir="auto">
+<td data-line="198" class="code-line" dir="auto">1</td>
+<td data-line="198" class="code-line" dir="auto">0.93</td>
+<td data-line="198" class="code-line" dir="auto">1.00</td>
+<td data-line="198" class="code-line" dir="auto">0.97</td>
+</tr>
+</tbody>
+</table>
+<div  data-line="200" class="code-line" dir="auto" ></div>
+</p>
+<div  data-line="202" class="code-line" dir="auto" ></div>
+<p>
+<h5>Classification report: Set C</h5>
+<table data-line="205" class="code-line" dir="auto">
+<thead data-line="205" class="code-line" dir="auto">
+<tr data-line="205" class="code-line" dir="auto">
+<th data-line="205" class="code-line" dir="auto">Class</th>
+<th data-line="205" class="code-line" dir="auto">Precision</th>
+<th data-line="205" class="code-line" dir="auto">Recall</th>
+<th data-line="205" class="code-line" dir="auto">F1-score</th>
+</tr>
+</thead>
+<tbody data-line="207" class="code-line" dir="auto">
+<tr data-line="207" class="code-line" dir="auto">
+<td data-line="207" class="code-line" dir="auto">0</td>
+<td data-line="207" class="code-line" dir="auto">1.00</td>
+<td data-line="207" class="code-line" dir="auto">0.91</td>
+<td data-line="207" class="code-line" dir="auto">0.95</td>
+</tr>
+<tr data-line="208" class="code-line" dir="auto">
+<td data-line="208" class="code-line" dir="auto">1</td>
+<td data-line="208" class="code-line" dir="auto">0.93</td>
+<td data-line="208" class="code-line" dir="auto">1.00</td>
+<td data-line="208" class="code-line" dir="auto">0.97</td>
+</tr>
+</tbody>
+</table>
+<div  data-line="210" class="code-line" dir="auto" ></div>
+</p>
+<div  data-line="212" class="code-line" dir="auto" ></div>
+<p>
+<p data-line="214" class="code-line" dir="auto">Following that, the dataset is processed using the classical machine learning model, Support Vector Classifier (SVC), yielding amazing results:</p>
+<table data-line="216" class="code-line" dir="auto">
+<thead data-line="216" class="code-line" dir="auto">
+<tr data-line="216" class="code-line" dir="auto">
+<th data-line="216" class="code-line" dir="auto">SVC</th>
+<th data-line="216" class="code-line" dir="auto">Score</th>
+</tr>
+</thead>
+<tbody data-line="218" class="code-line" dir="auto">
+<tr data-line="218" class="code-line" dir="auto">
+<td data-line="218" class="code-line" dir="auto">Classical SVC on the training dataset</td>
+<td data-line="218" class="code-line" dir="auto">1.00</td>
+</tr>
+<tr data-line="219" class="code-line" dir="auto">
+<td data-line="219" class="code-line" dir="auto">Classical SVC on the test dataset</td>
+<td data-line="219" class="code-line" dir="auto">0.96</td>
+</tr>
+</tbody>
+</table>
+<div  data-line="221" class="code-line" dir="auto" ></div>
+</p>
+<div  data-line="223" class="code-line" dir="auto" ></div>
+<p>
+<h5>Classification report: SVC</h5>
+<table data-line="226" class="code-line" dir="auto">
+<thead data-line="226" class="code-line" dir="auto">
+<tr data-line="226" class="code-line" dir="auto">
+<th data-line="226" class="code-line" dir="auto">Class</th>
+<th data-line="226" class="code-line" dir="auto">Precision</th>
+<th data-line="226" class="code-line" dir="auto">Recall</th>
+<th data-line="226" class="code-line" dir="auto">F1-score</th>
+</tr>
+</thead>
+<tbody data-line="228" class="code-line" dir="auto">
+<tr data-line="228" class="code-line" dir="auto">
+<td data-line="228" class="code-line" dir="auto">0</td>
+<td data-line="228" class="code-line" dir="auto">0.92</td>
+<td data-line="228" class="code-line" dir="auto">1.00</td>
+<td data-line="228" class="code-line" dir="auto">0.96</td>
+</tr>
+<tr data-line="229" class="code-line" dir="auto">
+<td data-line="229" class="code-line" dir="auto">1</td>
+<td data-line="229" class="code-line" dir="auto">1.00</td>
+<td data-line="229" class="code-line" dir="auto">0.93</td>
+<td data-line="229" class="code-line" dir="auto">0.96</td>
+</tr>
+</tbody>
+</table>
+<div  data-line="231" class="code-line" dir="auto" ></div>
+</p>
+<p data-line="233" class="code-line" dir="auto">When iterating with the same dataset, there is a noticeable decrease in test accuracy. Therefore, to assess the model's efficiency and performance more robustly, it is advisable to evaluate it on a different dataset.</p>
+<p data-line="235" class="code-line" dir="auto"><strong>5. Challenges and conclusion</strong></p>
+<p data-line="237" class="code-line" dir="auto">Grasping the intricacies of EEG signals, encompassing both conceptual understanding and the practical application of mathematical concepts in programming, is a challenging and time-consuming endeavor. In many scholarly works, eye blinks are commonly treated as artifacts during EEG signal processing. However, there is lack of literature regarding how to leverage eye blinks as potential biomarkers for visual disorders.</p>
+<p data-line="239" class="code-line" dir="auto">In conclusion, this project aimed to develop a digital biomarker using EEG data for the accurate identification of individuals with eye disorders characterized by distinct blink patterns. The initial phase involved comprehensive data preprocessing, including data cleaning, formatting, scaling, and artifact detection. To standardize the magnitude of EEG signal variations, min-max scaling was applied, ensuring a consistent range between 20 and 100 μV across the four electrodes. Subsequent artifact detection, low-frequency drift correction, and filtering steps, including third-order filters and a finite impulse response (FIR) filter, were implemented to enhance data quality and interpretability.</p>
+<p data-line="241" class="code-line" dir="auto">Feature extraction focused on statistical measures such as mean, variance, energy, standard deviation, kurtosis, and skewness. Random Forest, a robust algorithm for biomarker selection, was employed to identify important features. Visualization of the selected biomarkers revealed distinctive patterns between long and short blinks, particularly in the Kurtosis feature.</p>
+<p data-line="243" class="code-line" dir="auto">The model development phase utilized both a neural network and a classical machine learning approach, Support Vector Classifier (SVC). Evaluation metrics such as precision, recall, and F1-score were employed to assess model performance. Notably, set G of the neural network hyperparameters demonstrated optimal results. It is noteworthy that the Support Vector Classifier has also demonstrated superior performance. However, it is essential to note a decrease in test accuracy upon iteration with the same dataset, suggesting potential limitations or overfitting. To ensure robust evaluation, further testing on different datasets is recommended.</p>
+<p data-line="245" class="code-line" dir="auto">This project provides a comprehensive framework for leveraging EEG data as a potential biomarker for eye disorders. All references papers and codes can be found on Markdown.</p>
+
+		</div>
+	</body>
+</html>
