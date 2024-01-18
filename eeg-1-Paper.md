@@ -90,7 +90,7 @@ Subsequently, statistical feature extraction is employed to identify important s
 
 1) Mean
 
-Mean represents the average value of the EEG signal across the selected time domain.Changes in the mean may indicate shifts in the baseline or overall amplitude of the signal. It can be calculated by using Eq. below:
+Mean represents the average value of the EEG signal across the selected time domain.Changes in the mean may indicate shifts in the baseline or overall amplitude of the signal. 
 
 2) Variance
 
@@ -98,19 +98,19 @@ Variance provides information about the spread or dispersion of amplitude values
 
 3) Energy
 
-Energy is calculated to find the spreading out of the data values around the mean.Energy provides information about the intensity or power of the signal. Peaks in energy may correspond to periods of increased neural activity or certain events captured by the EEG. It can be calculated by using Eq. below:
+Energy is calculated to find the spreading out of the data values around the mean.Energy provides information about the intensity or power of the signal. Peaks in energy may correspond to periods of increased neural activity or certain events captured by the EEG. 
 
 4) Standard Deviation
 
-Standard deviation measures the amount of variability or dispersion of the EEG signal values around the mean.A higher standard deviation suggests greater variability in signal amplitudes. It can be indicative of the signal's overall volatility or the presence of irregularities. It can be calculated by using Eq. below:
+Standard deviation measures the amount of variability or dispersion of the EEG signal values around the mean.A higher standard deviation suggests greater variability in signal amplitudes. It can be indicative of the signal's overall volatility or the presence of irregularities.
 
 5) Kurtosis
 
-In a probability distribution, it measures the outliers present. It can be calculated by using Eq. below:
+In a probability distribution, it measures the outliers present. 
 
 6) Skewness
 
-Skewness describes asymmetry from the normal distribution in a set of statistical data, as data becomes more symmetrical as its value approaches zero. Normally distributed data, by definition has little skewness and on other hand positively skewed or right sided skewed data has positive and negatively skewed or left sided skewed has negative value. It can be calculated by using Eq. below:
+Skewness describes asymmetry from the normal distribution in a set of statistical data, as data becomes more symmetrical as its value approaches zero. Normally distributed data, by definition has little skewness and on other hand positively skewed or right sided skewed data has positive and negatively skewed or left sided skewed has negative value. 
 
 | Statistical features      | Long blink  | Short blink |
 | -----------               | ----------- |-----------  |
@@ -121,7 +121,7 @@ Skewness describes asymmetry from the normal distribution in a set of statistica
 | Kurtosis                  |3.78         |7.82         |
 | Skewness                  |-0.0121      |-0.0226      |
 
-It is observed that the mean and skewness do not show much variation between the two classes. On the other hand, variance, energy, standard deviation, and kurtosis show some good variation between the two classes. Therefore, the parameters *Variance*, *Energy*, *Standard deviation*, and *Kurtosis* are considered for analysis.
+It is observed that the mean and skewness do not show much variation between the two classes. On the other hand, variance, energy, standard deviation, and kurtosis show some good variation between the two classes. Therefore, these parameters are considered for analysis.
 
 
     

@@ -89,7 +89,7 @@ Transposing the DataFrame is done to ensure that each row corresponds to a speci
 <ol data-line="90" class="code-line" dir="auto">
 <li data-line="90" class="code-line" dir="auto">Mean</li>
 </ol>
-<p data-line="92" class="code-line" dir="auto">Mean represents the average value of the EEG signal across the selected time domain.Changes in the mean may indicate shifts in the baseline or overall amplitude of the signal. It can be calculated by using Eq. below:</p>
+<p data-line="92" class="code-line" dir="auto">Mean represents the average value of the EEG signal across the selected time domain.Changes in the mean may indicate shifts in the baseline or overall amplitude of the signal.</p>
 <ol start="2" data-line="94" class="code-line" dir="auto">
 <li data-line="94" class="code-line" dir="auto">Variance</li>
 </ol>
@@ -97,19 +97,19 @@ Transposing the DataFrame is done to ensure that each row corresponds to a speci
 <ol start="3" data-line="98" class="code-line" dir="auto">
 <li data-line="98" class="code-line" dir="auto">Energy</li>
 </ol>
-<p data-line="100" class="code-line" dir="auto">Energy is calculated to find the spreading out of the data values around the mean.Energy provides information about the intensity or power of the signal. Peaks in energy may correspond to periods of increased neural activity or certain events captured by the EEG. It can be calculated by using Eq. below:</p>
+<p data-line="100" class="code-line" dir="auto">Energy is calculated to find the spreading out of the data values around the mean.Energy provides information about the intensity or power of the signal. Peaks in energy may correspond to periods of increased neural activity or certain events captured by the EEG.</p>
 <ol start="4" data-line="102" class="code-line" dir="auto">
 <li data-line="102" class="code-line" dir="auto">Standard Deviation</li>
 </ol>
-<p data-line="104" class="code-line" dir="auto">Standard deviation measures the amount of variability or dispersion of the EEG signal values around the mean.A higher standard deviation suggests greater variability in signal amplitudes. It can be indicative of the signal's overall volatility or the presence of irregularities. It can be calculated by using Eq. below:</p>
+<p data-line="104" class="code-line" dir="auto">Standard deviation measures the amount of variability or dispersion of the EEG signal values around the mean.A higher standard deviation suggests greater variability in signal amplitudes. It can be indicative of the signal's overall volatility or the presence of irregularities.</p>
 <ol start="5" data-line="106" class="code-line" dir="auto">
 <li data-line="106" class="code-line" dir="auto">Kurtosis</li>
 </ol>
-<p data-line="108" class="code-line" dir="auto">In a probability distribution, it measures the outliers present. It can be calculated by using Eq. below:</p>
+<p data-line="108" class="code-line" dir="auto">In a probability distribution, it measures the outliers present.</p>
 <ol start="6" data-line="110" class="code-line" dir="auto">
 <li data-line="110" class="code-line" dir="auto">Skewness</li>
 </ol>
-<p data-line="112" class="code-line" dir="auto">Skewness describes asymmetry from the normal distribution in a set of statistical data, as data becomes more symmetrical as its value approaches zero. Normally distributed data, by definition has little skewness and on other hand positively skewed or right sided skewed data has positive and negatively skewed or left sided skewed has negative value. It can be calculated by using Eq. below:</p>
+<p data-line="112" class="code-line" dir="auto">Skewness describes asymmetry from the normal distribution in a set of statistical data, as data becomes more symmetrical as its value approaches zero. Normally distributed data, by definition has little skewness and on other hand positively skewed or right sided skewed data has positive and negatively skewed or left sided skewed has negative value.</p>
 <table data-line="114" class="code-line" dir="auto">
 <thead data-line="114" class="code-line" dir="auto">
 <tr data-line="114" class="code-line" dir="auto">
@@ -151,7 +151,7 @@ Transposing the DataFrame is done to ensure that each row corresponds to a speci
 </tr>
 </tbody>
 </table>
-<p data-line="123" class="code-line" dir="auto">It is observed that the mean and skewness do not show much variation between the two classes. On the other hand, variance, energy, standard deviation, and kurtosis show some good variation between the two classes. Therefore, the parameters <em>Variance</em>, <em>Energy</em>, <em>Standard deviation</em>, and <em>Kurtosis</em> are considered for analysis.</p>
+<p data-line="123" class="code-line" dir="auto">It is observed that the mean and skewness do not show much variation between the two classes. On the other hand, variance, energy, standard deviation, and kurtosis show some good variation between the two classes. Therefore, these parameters are considered for analysis.</p>
 <p data-line="127" class="code-line" dir="auto"><img src="eeg-1-Paper_files/eeg-1-Paper_34_0.png" alt="png" data-src="eeg-1-Paper_files/eeg-1-Paper_34_0.png"></p>
 <p data-line="131" class="code-line" dir="auto"><strong>3. Biomarker Selection and Visualization</strong></p>
 <p data-line="133" class="code-line" dir="auto">In the context of biomarker selection, the random forest algorithm, which employs multiple decision tree classifiers on various subsets of the dataset is applied. Averaging is used to enhance predictive accuracy and control overfitting.</p>
