@@ -11,3 +11,4 @@ PyWavelets
 PyEEG
 keras
 tensorflow
+lmlib #(library for EEG signal processing and machine learning)

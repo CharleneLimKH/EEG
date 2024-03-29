@@ -1,0 +1,5 @@
+columns_plot = []
+for i in feature_names:
+    for j in range(4):
+        columns_plot.append(f"ser{j+1}_{i.lower()}")
+columns_plot.append("output\n0=short blink\n1=long blink")
